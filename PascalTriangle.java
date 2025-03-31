@@ -13,6 +13,65 @@ import java.util.*;
 public class PascalTriangle  
 {
     public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> op = new ArrayList<>();
+        if(numRows==1)
+        {
+            List<Integer> opad = new ArrayList<>();
+            opad.add(1);
+            op.add(opad);
+            return op;
+        }
+        if(numRows==2)
+        {
+            List<Integer> opad = new ArrayList<>();
+            opad.add(1);
+            List<Integer> opad1 = new ArrayList<>();
+            opad1.add(1);
+            opad1.add(1);
+            op.add(opad);
+            op.add(opad1);
+            return op;
+        }
+
+        int[][] dp = new int[numRows][numRows];
+        dp[0][0] = 1;
+        dp[1][0] = 1;
+        dp[1][1] = 1;
+        List<Integer> opad = new ArrayList<>();
+        opad.add(1);
+        op.add(opad);
+
+        List<Integer> opad1 = new ArrayList<>();
+        opad1.add(1);
+        opad1.add(1);
+        op.add(opad1);
+
+        for(int i=2;i<dp.length;i++)
+        {
+            opad = new ArrayList<>();
+            for(int j=0;j<=i;j++)
+            {
+                if(j==0)
+                {
+                    dp[i][j] = 1;
+                }
+                else if(j==i)
+                {
+                    dp[i][j] = 1;
+                }
+                else
+                {
+                    dp[i][j] = dp[i-1][j]+dp[i-1][j-1];
+                }
+                opad.add(dp[i][j]);
+            }
+            op.add(opad);
+        }
+        return op;
+    }
+
+    // Approach 2 : 
+    /*public List<List<Integer>> generate(int numRows) {
         List<Integer> arr = new ArrayList<>();
         List<List<Integer>> op  = new ArrayList<List<Integer>>();
         arr.add(1);
@@ -51,5 +110,5 @@ public class PascalTriangle
             }
         }
         return op;
-    }
+    }*/
 }
